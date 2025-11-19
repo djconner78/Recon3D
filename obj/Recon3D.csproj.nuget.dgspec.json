@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\temp\\Recon3D\\Recon3D\\Recon3D\\Recon3D.csproj": {}
+    "C:\\temp\\workspace\\Recon3D\\Recon3D.csproj": {}
   },
   "projects": {
-    "C:\\temp\\Recon3D\\Recon3D\\Recon3D\\Recon3D.csproj": {
+    "C:\\temp\\workspace\\Recon3D\\Recon3D.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\temp\\Recon3D\\Recon3D\\Recon3D\\Recon3D.csproj",
+        "projectUniqueName": "C:\\temp\\workspace\\Recon3D\\Recon3D.csproj",
         "projectName": "Recon3D",
-        "projectPath": "C:\\temp\\Recon3D\\Recon3D\\Recon3D\\Recon3D.csproj",
+        "projectPath": "C:\\temp\\workspace\\Recon3D\\Recon3D.csproj",
         "packagesPath": "C:\\Users\\booboo\\.nuget\\packages\\",
-        "outputPath": "C:\\temp\\Recon3D\\Recon3D\\Recon3D\\obj\\",
+        "outputPath": "C:\\temp\\workspace\\Recon3D\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

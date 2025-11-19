@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Recon3D")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af1412ba190bbef39512917a80ea46b97aa26136")]
 [assembly: System.Reflection.AssemblyProductAttribute("Recon3D")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Recon3D")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
