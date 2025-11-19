@@ -392,42 +392,5 @@ namespace Recon3D
             points1 = p1.ToArray();
             points2 = p2.ToArray();
         }
-
-        internal Poser CrossCheck(Poser pose2, Mat mat1, Mat mat2)
-        {
-            List<Point2f> pts1 = new List<Point2f>();
-            List<Point2f> pts2 = new List<Point2f>();
-            List<Vec3b> clrs = new List<Vec3b>();
-
-            for (int i = 0; i < points1!.Length; i++)
-            {
-                var p1 = points2![i];
-                var p2 = pose2.points2![i];
-
-                if (!mat1.InvalidPoint(p1))
-                {
-                    if (!mat2.InvalidPoint(p2))
-                    {
-                        var co1 = mat1.GetColor(p1);
-                        var co2 = mat2.GetColor(p2);
-
-                        var diff = co2.SqDiff(co1);
-                        if (diff < 19)
-                        {
-                            pts1.Add(p1);
-                            pts2.Add(p2);
-                            clrs.Add(co1);
-                        }
-                    }
-                }
-            }
-
-            var res = new Poser();
-            res.points1 = pts1.ToArray();
-            res.points2 = pts2.ToArray();
-            res.colors = clrs.ToArray();
-
-            return res;
-        }
     }
 }
