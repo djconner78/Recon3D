@@ -36,7 +36,7 @@ namespace Recon3D
             //create the 1st pose, dense cloud
             var pose1 = Poser.Create(images[0], images[1], HFOV);
 
-            pose1.ExportPoints("output/pose1.xyzc");
+            pose1.ExportOBJ("output/pose1.obj");
 
             //reproject the points back into 2d space
             pose1.ReprojectPoints("output/cam1.png", "output/cam2.png", images[0].Size());
@@ -51,7 +51,7 @@ namespace Recon3D
             pose1.KeepSamePoints(pose3);
             pose2.KeepSamePoints(pose3);
 
-            pose1.ExportPoints("output/pose_Logical_AND.xyzc");
+            pose1.ExportOBJ("output/pose_Logical_AND.obj");
 
             //reproject the points back into 2D space
             pose1.ReprojectPoints("output/Logical_AND_cam1.png", "output/Logical_AND_cam2.png", images[0].Size());
