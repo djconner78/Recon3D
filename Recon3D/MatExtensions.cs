@@ -7,7 +7,6 @@ namespace Recon3D
 {
     internal static class MatExtensions
     {
-
         internal static Mat BalanceColors(this Mat image)
         {
             Mat src1 = image.Clone();
@@ -33,24 +32,6 @@ namespace Recon3D
             BalanceCo(src1, avgCo1);
             return src1;
         }
-
-
-        internal static double Compare(this Mat source, Mat image)
-        {
-            byte[] data1;
-            source.GetArray<byte>(out data1);
-
-            byte[] data2;
-            image.GetArray<byte>(out data2);
-
-            var data_d1 = data1.Select(s => (double)s).ToArray();
-            var data_d2 = data2.Select(s => (double)s).ToArray();
-
-            return data_d1.ComputeCoeff(data_d2);
-        }
-
-
-
 
         static void BalanceCo(Mat src1, Vec3d avgCo1)
         {
@@ -78,16 +59,6 @@ namespace Recon3D
                 }
             }
         }
-
-
-        internal static Mat ToBGRGray(this Mat src)
-        {
-            var tmp = src.Type() == MatType.CV_8UC1 ? src.Clone() : src.CvtColor(ColorConversionCodes.BGR2GRAY);
-            var res = tmp.CvtColor(ColorConversionCodes.GRAY2BGR);
-            tmp.Dispose();
-            return res;
-        }
-
 
 
         internal static Vec3b GetColor(this Mat src, int x, int y)
@@ -123,8 +94,6 @@ namespace Recon3D
             Cv2.BitwiseNot(img, res);
             return res;
         }
-
-
 
         internal static KeyPoint[] ToKeyPoints(this Point2f[] array)
         {
@@ -187,53 +156,6 @@ namespace Recon3D
             return GetColorDifference(co1, co2);
         }
 
-
-        internal static Double PearsonCorrelation(this Vec3b[] co1, Vec3b[] co2, bool decorrelate = false)
-        {
-            var co1_i0 = co1.Select(s => (double)s.Item0).ToArray();
-            var co2_i0 = co2.Select(s => (double)s.Item0).ToArray();
-
-            if (decorrelate)
-            {
-                co1_i0 = Detrend(co1_i0);
-                co2_i0 = Detrend(co2_i0);
-            }
-
-            var p0 = PearsonCorrelation(co1_i0, co2_i0);
-
-            var co1_i1 = co1.Select(s => (double)s.Item1).ToArray();
-            var co2_i1 = co2.Select(s => (double)s.Item1).ToArray();
-
-            if (decorrelate)
-            {
-                co1_i1 = Detrend(co1_i1);
-                co2_i1 = Detrend(co2_i1);
-            }
-
-            var p1 = PearsonCorrelation(co1_i1, co2_i1);
-
-            var co1_i2 = co1.Select(s => (double)s.Item2).ToArray();
-            var co2_i2 = co2.Select(s => (double)s.Item2).ToArray();
-
-            if (decorrelate)
-            {
-                co1_i2 = Detrend(co1_i2);
-                co2_i2 = Detrend(co2_i2);
-            }
-
-            var p2 = PearsonCorrelation(co1_i2, co2_i2);
-
-            return (p0 + p1 + p2) / 3d;
-        }
-
-        private static double[] Detrend(double[] v)
-        {
-            var d1 = v.Select((d, idx) => (idx == 0 ? 0 : d - v[idx - 1]))
-                .Skip(1)
-                .ToArray();
-
-            return d1;
-        }
 
         public static double ComputeCoeff(this double[] values1, double[] values2)
         {
@@ -359,6 +281,18 @@ namespace Recon3D
             return can1.BitwiseOr(can2).ToMat().BitwiseOr(can3).ToMat();
         }
 
+        internal static Mat AdaptiveCannyExt(this Mat img, int wsize)
+        {
+            var c1 = img.GetChannel(0);
+            var c2 = img.GetChannel(1);
+            var c3 = img.GetChannel(2);
+
+            var can1 = c1.AdaptiveThreshold(127, AdaptiveThresholdTypes.MeanC, ThresholdTypes.Binary, wsize, 0);
+            var can2 = c2.AdaptiveThreshold(127, AdaptiveThresholdTypes.MeanC, ThresholdTypes.Binary, wsize, 0);
+            var can3 = c3.AdaptiveThreshold(127, AdaptiveThresholdTypes.MeanC, ThresholdTypes.Binary, wsize, 0);
+
+            return can1.BitwiseOr(can2).ToMat().BitwiseOr(can3).ToMat();
+        }
     }
 
     internal static class Vec3bExtensions
